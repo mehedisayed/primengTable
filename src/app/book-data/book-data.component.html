@@ -1,0 +1,28 @@
+<p-table #dt [value]="books" [globalFilterFields]="['title','author','year','country','language']" [rowHover]="true" [columns]="cols"  dataKey="title" styleClass="p-datatable-gridlines p-datatable-responsive" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50,75]" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+    </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+        {{col.header}}
+        <p-sortIcon field="col.header"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns" >
+    <tr [pSelectableRow]="rowData">
+      <td *ngFor="let col of columns" >
+        {{rowData[col.field]}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p>{{book.title}}</p>
+<p>{{book.pages}}</p>
