@@ -1,0 +1,154 @@
+<p-toast></p-toast>
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+    </ng-template>
+  </p-toolbar>
+  <p-table #dt [value]="books" styleClass="p-datatable-striped p-datatable-gridlines" dataKey="title" editMode="row" selectionMode="single"[(selection)]="book" (onRowSelect)="onRowSelect($event)" [scrollable]="true"  scrollHeight="500px" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['title','author','language','year','country']" [rowHover]="true">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex">
+        <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                </span>
+        <button type="button" pButton pRipple label="Export" icon="pi pi-upload" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="colgroup" let-columns>
+      <colgroup>
+        <col style="width:250px">
+        <col style="width:250px">
+        <col style="width:100px">
+        <col style="width:250px">
+        <col style="width:150px">
+        <col style="width:150px">
+        <col style="width:10rem">
+      </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="author">Author <p-sortIcon field="author"></p-sortIcon></th>
+        <th pSortableColumn="title">Title <p-sortIcon field="title"></p-sortIcon></th>
+        <th pSortableColumn="year">Year <p-sortIcon field="year"></p-sortIcon></th>
+        <th pSortableColumn="country">Country <p-sortIcon field="country"></p-sortIcon></th>
+        <th pSortableColumn="language">Language <p-sortIcon field="language"></p-sortIcon></th>
+        <th pSortableColumn="pages">Pages <p-sortIcon field="pages"></p-sortIcon></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-book let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="book" [pSelectableRow]="book">
+        <td width="250px">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [style]="{'width': '100%'}" [(ngModel)]="book.author" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{book.author}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td width="250px">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [style]="{'width': '100%'}" [(ngModel)]="book.title" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{book.title}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td width="100px">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [style]="{'width': '100%'}" [(ngModel)]="book.year" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{book.year}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td width="250px">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [style]="{'width': '100%'}" [(ngModel)]="book.country" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{book.country}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td width="150px">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [style]="{'width': '100%'}" [(ngModel)]="book.language" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{book.language}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td >
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [style]="{'width': '100%'}" [(ngModel)]="book.pages" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{book.pages}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="text-align:center">
+          <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(book)" class="p-button-rounded p-button-text"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(book)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(book, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editBook(book)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteBook(book)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-dialog [(visible)]="bookDialog" [style]="{width: '450px'}" header="Book Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+      <div class="p-field">
+        <label for="title">Title</label>
+        <input type="text" pInputText id="title" [(ngModel)]="book.title" required autofocus />
+        <small class="p-error" *ngIf="submitted && !book.title">Title is required.</small>
+      </div>
+      <div class="p-field">
+        <label for="author">Author</label>
+        <input type="text" pInputText id="author" [(ngModel)]="book.author" required autofocus />
+        <small class="p-error" *ngIf="submitted && !book.author">author is required.</small>
+      </div>
+      <div class="p-field">
+        <label for="year">Year</label>
+        <input type="text" pInputText id="year" [(ngModel)]="book.year" required autofocus />
+        <small class="p-error" *ngIf="submitted && !book.year">year is required.</small>
+      </div>
+      <div class="p-field">
+        <label for="country">Country</label>
+        <input type="text" pInputText id="country" [(ngModel)]="book.country" required autofocus />
+        <small class="p-error" *ngIf="submitted && !book.country">country is required.</small>
+      </div>
+      <div class="p-field">
+        <label for="language">Language</label>
+        <input type="text" pInputText id="language" [(ngModel)]="book.language" required autofocus />
+        <small class="p-error" *ngIf="submitted && !book.language">language is required.</small>
+      </div>
+      <div class="p-field">
+        <label for="pages">Pages</label>
+        <input type="text" pInputText id="pages" [(ngModel)]="book.pages" required autofocus />
+        <small class="p-error" *ngIf="submitted && !book.pages">pages is required.</small>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveBook()"></button>
+    </ng-template>
+  </p-dialog>
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+</div>
