@@ -1,0 +1,30 @@
+.exception-body {
+  height: 100%;
+  background: white;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  -ms-transform: translate(50%, 50%);
+  transform: translate(0%, 50%);
+  align-items: center;
+  flex-direction: column;
+}
+
+.exception-body  .exception-wrapper {
+  padding: 50px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.exception-body  .exception-wrapper .exception-summary {
+  display: block;
+  color: black;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.exception-body  .exception-wrapper .exception-detail {
+  display: block;
+  color: black;
+  margin-bottom: 50px;
+}
+

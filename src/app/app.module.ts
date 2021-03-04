@@ -16,11 +16,15 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {DialogModule} from 'primeng/dialog';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {TabViewModule} from 'primeng/tabview';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { CardFliperComponent } from './card-fliper/card-fliper.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookDataComponent
+    BookDataComponent,
+    NotFoundComponent,
+    CardFliperComponent
   ],
   imports: [
     BrowserModule,
