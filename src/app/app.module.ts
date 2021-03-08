@@ -18,13 +18,21 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {TabViewModule} from 'primeng/tabview';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CardFliperComponent } from './card-fliper/card-fliper.component';
+import { ProfileComponent } from './profile/profile.component';
+import {DropdownModule} from 'primeng/dropdown';
+import {CheckboxModule} from 'primeng/checkbox';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {DividerModule} from 'primeng/divider';
+import {CardModule} from 'primeng/card';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookDataComponent,
     NotFoundComponent,
-    CardFliperComponent
+    CardFliperComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +48,13 @@ import { CardFliperComponent } from './card-fliper/card-fliper.component';
     ToolbarModule,
     DialogModule,
     ConfirmDialogModule,
-    TabViewModule
+    TabViewModule,
+    DropdownModule,
+    CheckboxModule,
+    RadioButtonModule,
+    InputTextareaModule,
+    DividerModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

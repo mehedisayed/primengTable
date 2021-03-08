@@ -1,0 +1,26 @@
+.profile {
+  height: 100%;
+  padding: 0;
+}
+
+.profile .profile-header {
+  background-image: url(https://www.aiub.edu/Files/Uploads/original/banner-3.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  min-height: 200px;
+  position: relative;
+}
+.profile .profile-header img {
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+  margin-left: -100px;
+  width: 200px;
+  height: 200px;
+}
+.profile .profile-content {
+  padding: 100px 12px 24px;
+}
