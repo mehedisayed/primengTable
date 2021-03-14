@@ -3,6 +3,8 @@ import {BookService} from '../../services/book.service';
 import {Book} from '../models/Book';
 import {ConfirmationService, LazyLoadEvent, MessageService, PrimeNGConfig} from 'primeng/api';
 
+declare var renameDocument: any;
+
 @Component({
   selector: 'app-book-data',
   templateUrl: './book-data.component.html',
@@ -145,5 +147,10 @@ export class BookDataComponent implements OnInit {
       }
     }
     return index;
+  }
+
+  renameTabTest(): void {
+    renameDocument();
+    const tab = {oldTitle: 'Book List', newTitle: 'Edit List', url: '/card'};
   }
 }

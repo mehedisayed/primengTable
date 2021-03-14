@@ -5,6 +5,8 @@
     <ng-template pTemplate="left">
       <button (click)="openNew()" class="p-button-success p-mr-2" icon="pi pi-plus" label="New" pButton
               pRipple></button>
+      <button (click)="renameTabTest()" class="p-button-success p-mr-2" icon="pi pi-plus" label="Test" pButton
+              pRipple></button>
     </ng-template>
   </p-toolbar>
   <p-table #dt [columns]="cols" (onRowSelect)="onRowSelect($event)"

@@ -1,10 +1,17 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
-export interface Tab{
+declare var getHost: any;
+
+export interface Tab {
   Title: string;
   Url: SafeResourceUrl;
   Select: boolean;
+}
+
+export interface Messaging {
+  Message: string;
+  ReceivedData: any;
 }
 
 @Component({
@@ -15,45 +22,61 @@ export interface Tab{
 export class TabsComponent implements OnInit {
   tabs: Tab[];
   selectedIndex = 0;
-  constructor(private sanitizer: DomSanitizer, private ref: ChangeDetectorRef) {}
+
+  constructor(private sanitizer: DomSanitizer, private ref: ChangeDetectorRef) {
+  }
 
   ngOnInit(): void {
-    this.tabs = [ { Title: 'Dashboard', Url: this.sanitizer.bypassSecurityTrustResourceUrl('/dashboard'), Select: true}];
+    this.tabs = [{Title: 'Dashboard', Url: this.sanitizer.bypassSecurityTrustResourceUrl('/dashboard'), Select: true}];
   }
+
   ngAfterContentChecked() {
     this.ref.detectChanges();
   }
-  changeTab(event): void{
+
+
+
+  RenameDoc(): void {
+    alert('rename');
+  }
+
+  changeTab(event): void {
     this.tabs[this.selectedIndex].Select = false;
     this.selectedIndex = event.index;
     this.tabs[this.selectedIndex].Select = true;
   }
-  closeTab(event): void{
+
+  closeTab(event): void {
     this.tabs[this.selectedIndex].Select = false;
     this.tabs[0].Select = true;
     this.selectedIndex = 0;
     this.tabs.splice(event.index, 1);
   }
-  addTab(title: string, url: string): void{
-    const tab = { Title: title, Url: this.sanitizer.bypassSecurityTrustResourceUrl(url), Select: true};
-    if (this.tabs.find(t => t.Title === tab.Title) === undefined)
-    {
+
+  addTab(title: string, url: string): void {
+    const tab = {Title: title, Url: this.sanitizer.bypassSecurityTrustResourceUrl(url), Select: false};
+    let index = this.tabs.findIndex(t => t.Title === tab.Title);
+
+    if (index === -1) {
       this.tabs.push(tab);
-      this.selectedIndex = this.tabs.length - 1;
+      index = this.tabs.length - 1;
     }
 
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.tabs.length; i++)
-    {
-      if (this.tabs[i].Title !== tab.Title)
-      {
-        this.tabs[i].Select = false;
-      }
-      else
-      {
-        this.tabs[i].Select = true;
-        this.selectedIndex = i;
-      }
+    this.tabs[this.selectedIndex].Select = false;
+    this.tabs[index].Select = true;
+    this.selectedIndex = index;
+
+  }
+
+  renameTab(oldTitle: string, newTitle: string, url: string): void {
+
+    const tab = this.tabs.find(t => t.Title === oldTitle);
+
+    if (tab === undefined) {
+      return;
     }
+
+    tab.Title = newTitle;
+    tab.Url = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
