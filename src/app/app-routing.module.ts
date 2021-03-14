@@ -6,10 +6,16 @@ import {CardFliperComponent} from './card-fliper/card-fliper.component';
 import {ProfileComponent} from './profile/profile.component';
 
 const routes: Routes = [
-  {path: 'books', component: BookDataComponent},
-  {path: '404', component: NotFoundComponent},
   {path: 'Card', component: CardFliperComponent},
-  {path: 'Profile', component: ProfileComponent}
+  {path: 'Profile', component: ProfileComponent},
+  {
+    path: 'books',
+    component: BookDataComponent
+  },
+  {
+    path: '404',
+    component: NotFoundComponent
+  },
 ];
 
 @NgModule({
