@@ -25,6 +25,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {DividerModule} from 'primeng/divider';
 import {CardModule} from 'primeng/card';
+import { TabsComponent } from './tabs/tabs.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import {CardModule} from 'primeng/card';
     BookDataComponent,
     NotFoundComponent,
     CardFliperComponent,
-    ProfileComponent
+    ProfileComponent,
+    TabsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

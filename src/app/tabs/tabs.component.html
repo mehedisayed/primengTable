@@ -1,0 +1,9 @@
+<p-button (click)="addTab('Book List','/books')" styleClass="p-button-text" label="Book List"></p-button>
+<p-button (click)="addTab('Not Found','/card')" styleClass="p-button-text" label="Not Found"></p-button>
+<p-button (click)="addTab('Profile','/profile')" styleClass="p-button-text" label="Profile"></p-button>
+
+<p-tabView [controlClose]="true" (onClose)="closeTab($event)" (onChange)="changeTab($event)" [activeIndex]="selectedIndex" >
+  <p-tabPanel [header]="tab.Title" *ngFor="let tab of tabs; let i = index" [selected]="tab.Select" [closable]="i != 0">
+    <iframe width="100%" height="500px" [src]="tab.Url"></iframe>
+  </p-tabPanel>
+</p-tabView>
